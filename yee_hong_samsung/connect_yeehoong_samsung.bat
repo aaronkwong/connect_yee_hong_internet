@@ -1,0 +1,1 @@
+python "C:\Users\wong\My Drive\yee_hong_samsung\connect_yee_hong_samsung_v5.py"
