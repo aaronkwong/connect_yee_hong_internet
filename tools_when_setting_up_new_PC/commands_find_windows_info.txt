@@ -1,1 +1,5 @@
 netsh interface show interface
+
+
+#change name of updater.exe
+C:\Program Files (x86)\Google\Update

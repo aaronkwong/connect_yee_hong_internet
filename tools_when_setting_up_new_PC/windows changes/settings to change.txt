@@ -1,0 +1,4 @@
+# these are the windows settings changes when setting up a computer for yee hong
+
+- allow wake timers
+- disable windows task "task scheduler library"-->Microsoft-->Windows-->UpdateOrchestrator-->Universal Orchestrator Start

@@ -1,0 +1,2 @@
+#disable google updates in windows services (theres 2)
+#go to program files x86 --> Google --> Uppate --> change name of google updater.exe to prevent it from being executed
