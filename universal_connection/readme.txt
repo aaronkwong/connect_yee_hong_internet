@@ -16,3 +16,6 @@ Windows Specific Changes off the top of my head:
 -stop windows from opening wifi portal when connecting to yee hong
 -set up task scheduler to run script every boot
 -find windows interface device name 
+-force 5ghz band
+-disable screensaver
+-overscan
