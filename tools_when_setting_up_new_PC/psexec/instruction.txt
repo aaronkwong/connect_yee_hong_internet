@@ -1,0 +1,1 @@
+for psshutdown copy to working directory where script runs so it can find the application

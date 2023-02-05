@@ -7,9 +7,12 @@ from datetime import datetime
 import os
 
 #change this to point to the identity file for the computer it is running on
-filepath_to_identity=""
+filepath_to_identity="identity.py"
 
-execfile(filepath_to_identity)
+exec(open(filepath_to_identity).read())
+
+print("backup wifi is: "+backup_wifi)
+print("The chrome driver path is: "+chrome_driver_path)
 
 if(os.path.isfile(path_to_turn_OFF_hotspot_script)):
     print("good")
@@ -119,7 +122,7 @@ def accept_yee_hong_agreement(url,chrome_options):
     current_time = now.strftime("%H:%M:%S")
     try:
         print(current_time,"accepting yee hong agreement...",file=open(date_today+output_name,"a"))
-        driver=webdriver.Chrome(chrome_options=chrome_options)
+        driver=webdriver.Chrome(chrome_options=chrome_options,executable_path=chrome_driver_path)
         time.sleep(5)
         driver.get(url)
         time.sleep(10)
@@ -146,6 +149,9 @@ def check_if_reboot_needed(path_reboot_bat):
     except:
         print(current_time,"Failure to send reboot command.", file=open(date_today+output_name,"a"))
 
+#######################################################################
+#if you wanto test a function uncomment, and we can inject code here.
+exec(open("test_functions.py").read())
 
 fail_count=0
 #the main loop
