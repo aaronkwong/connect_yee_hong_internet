@@ -1,0 +1,40 @@
+FROM ubuntu:20.04
+RUN mkdir temp
+RUN cd temp
+COPY "C:/Users/wonga/My Drive/python/connect_yee_hong/docker/google-chrome-stable_current_amd64.deb" "./google-chrome-stable_current_amd64.deb"
+COPY "C:/Users/wonga/My Drive/python/connect_yee_hong/docker/chromedriver" "/usr/bin/chromedriver"
+RUN chown root:root /usr/bin/chromedriver
+RUN chmod +x /usr/bin/chromedriver
+RUN apt-get update -y
+RUN apt install wget -y
+RUN apt-get install ./google-chrome-stable_current_amd64.deb
+RUN apt install python3.9
+RUN apt-get install python3-pip
+EXPOSE 3000
+
+
+
+
+
+
+
+
+mkdir temp
+cd temp
+apt-get update -y
+apt install wget -y
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt-get install -f
+
+wget https://chromedriver.storage.googleapis.com/110.0.5481.77/chromedriver_linux64.zip
+apt install unzip
+unzip chromedriver_linux64.zip
+mv chromedriver /usr/bin/chromedriver
+chown root:root /usr/bin/chromedriver
+chmod +x /usr/bin/chromedriver
+
+apt install python3.9
+apt install python3-pip
+
+options.add_argument("--no-sandbox")

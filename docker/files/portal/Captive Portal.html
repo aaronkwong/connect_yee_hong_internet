@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0148)https://captiveportal-login.yeehong.com/swarm.cgi?opcode=cp_generate&orig_url=687474703a2f2f7777772e677374617469632e636f6d2f67656e65726174655f323034 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"> 
+        <link rel="stylesheet" href="./Captive Portal_files/auth-styles.css"> 
+        <link rel="shortcut icon" href="https://captiveportal-login.yeehong.com/swarm.cgi?opcode=cp_generate&amp;orig_url=687474703a2f2f7777772e677374617469632e636f6d2f67656e65726174655f323034">
+        <title>Captive Portal</title> 
+    </head> 
+    <body> 
+    <div class="splash-container" style="background-color:#ffffff;"> 
+        <div class="splash-banner" style="background-color:#f7fff7;"> 
+          <div class="splash-banner-logo-container" style="splash-banner-logo-container"> 
+            <div> 
+                 
+            </div> 
+          </div> 
+        </div> 
+        <div class="splash-body-container"> 
+            <div class="splash-body-left"> 
+                <div id="splash-banner-text" class="splash-block splash-banner-text"> 
+                    PUBLIC FREE WI-FI AT YEE HONG 
+                </div> 
+                <div id="splash-policy" class="splash-block splash-policy-container"> 
+                    This is a free internet service for guest while visiting Yee Hong facilities. 
+                </div> 
+                <div class="splash-block"> 
+                    <div id="splash-terms" class="splash-terms"> 
+                    Yee Hong does not warrant its security, quality or availability 
+                    </div> 
+                </div> 
+            </div> 
+            <div class="splash-body-right"> 
+                <div class="splash-block splash-form"> 
+                    <form method="POST" action="https://captiveportal-login.yeehong.com/swarm.cgi"> 
+                        <input type="hidden" name="orig_url" value="687474703a2f2f7777772e677374617469632e636f6d2f67656e65726174655f323034"> 
+                        <input type="hidden" name="opcode" value="cp_ack"> 
+                        <input type="submit" value="Accept"> 
+                    </form> 
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+     
+    <script> 
+        (function () { 
+            var decode_string = ''; 
+            var decode_map = { 
+                'banner' : 'splash-banner-text', 
+                'terms' : 'splash-terms', 
+                'policy' : 'splash-policy' 
+            } 
+            function unicodeToText(srcText) { 
+                var text = ''; 
+                if(srcText) { 
+                    var arr = srcText.split(';'); 
+                    for ( var i = 0; i < arr.length; i++ ){ 
+                        if (arr[i] !== '') { 
+                            text += String.fromCharCode(parseInt(arr[i], 16)); 
+                        } 
+                    } 
+                } 
+                return text; 
+            } 
+            function $(id) { 
+                return document.getElementById(id); 
+            } 
+            if(decode_string) { 
+                var decode_texts = decode_string.split('/'); 
+                var id, element; 
+                for (var i = 0; i < decode_texts.length; i++) { 
+                    id = decode_map[decode_texts[i]]; 
+                    if (id) { 
+                        element = $(id); 
+                        if (element) { 
+                            element.innerHTML = unicodeToText(element.innerHTML); 
+                        } 
+                    } 
+                } 
+            } 
+        })() 
+    </script> 
+ 
+</body></html>

@@ -1,0 +1,162 @@
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, 
+dl, dt, dd, ul, ol, li, 
+pre, 
+fieldset, lengend, button, input, textarea, 
+th, td { 
+    margin: 0;
+    padding: 0;
+}
+
+legend { color: #000; } 
+fieldset, img { border: none; } 
+
+button, input, select, textarea {
+    font-size: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+hr {
+    border: none;
+    height: 1px;
+}
+
+html, body {
+    width: 100%;
+    height: 100%; 
+    font-size: 16px;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none; 
+    -ms-user-select:none;  
+}
+
+body, div, span, form, input, button {
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.splash-container {
+    height: 100%;
+    width:100%;
+    overflow: auto;
+    position: relative;
+    background: transparent;
+}
+.splash-banner {
+    padding: 16px;
+    padding: 1rem;
+}
+
+.splash-banner-text {
+    font-weight: bold;
+    font-size: 20px;
+    font-size: 1.25rem;
+}
+
+.splash-body-container {
+    width: 50%;
+    margin: 5% auto;
+}
+
+.splash-body-left, .splash-body-right {
+    float: left;
+    width: 50%;
+}
+
+.splash-policy-action {
+    clear: both;
+}
+
+.internal-ackn .splash-policy{
+    border: none;
+}
+
+.splash-block {
+    border: none;
+    padding: 12.8px 16px;
+    padding: 0.8rem 1rem;
+    background: transparent;
+}
+
+.splash-terms {
+    color: #aaa;
+    word-wrap:break-word;
+}
+
+.splash-term-agree-label {
+    color: #E57D18;
+}
+
+.splash-policy-container {
+    word-wrap:break-word;
+}
+
+.splash-policy input[type='submit'] {
+    border: none;
+    height: 32px;
+    height: 2rem;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.splash-form {
+    margin-left: 0;
+    border:none;
+}
+
+.splash-form * {
+    margin-bottom: 12.8px;
+    margin-bottom: 0.8rem;
+    width:100%;
+}
+
+.splash-form input {
+    box-sizing: border-box;
+    padding: 12.8px 16px;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.splash-form input[type='submit'] {
+    border: none;
+    background-color: #02a7ec;
+    color: #fff;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #02abf1), color-stop(100%, #02a3e7));
+    background-image: -moz-linear-gradient(#02abf1, #02a3e7);
+    background-image: -webkit-linear-gradient(#02abf1, #02a3e7);
+    background-image: linear-gradient(#02abf1, #02a3e7);
+}
+
+.splash-form input[type='checkbox'] {
+    width:auto;
+    border: none;
+    margin-right: 10px;
+    margin-right: 0.625rem;
+    padding: 0;
+}
+
+
+@media only screen and (max-width: 677px) {
+    .splash-body-container {
+        width: 100%;
+    }
+
+    .splash-banner-text {
+        font-size: 19.2px;
+        font-size: 1.2rem;
+    }
+
+    .splash-body-left, .splash-body-right {
+        float: none;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1025px) {
+    .splash-body-container {
+        width: 90%;
+    }
+}
