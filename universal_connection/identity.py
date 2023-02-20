@@ -13,3 +13,5 @@ run_hotspot=False
 path_reboot_bat="C://Users//Aaron Wong//Desktop//connect_yee_hong_internet//universal_connection//active_scripts//reboot.bat"
 #name of profile of internet to connect to in case Yee Hong is unsuccessful. Must have connected previously to establish a saved profile
 backup_wifi="Dragon_backup"
+#name of docker image that accepts the yee hong captive portal
+accept_captive_portal_docker_image_name="wonga445/yh1:v1.0"

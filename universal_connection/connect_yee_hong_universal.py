@@ -35,6 +35,7 @@ from identity import path_to_turn_ON_hotspot_script
 from identity import run_hotspot
 from identity import path_reboot_bat
 from identity import backup_wifi
+from identity import accept_captive_portal_docker_image_name
 
 print("working_directory wifi is: "+working_directory)
 print("five_ghz_adapter_name wifi is: "+five_ghz_adapter_name)
@@ -43,6 +44,7 @@ print("path_to_turn_ON_hotspot_script wifi is: "+path_to_turn_ON_hotspot_script)
 print("run_hotspot wifi is: "+str(run_hotspot))
 print("path_reboot_bat wifi is: "+path_reboot_bat)
 print("backup wifi is: "+backup_wifi)
+print("accept_captive_portal_docker_image_name wifi is: "+accept_captive_portal_docker_image_name)
 
 
 if(os.path.isfile(path_to_turn_OFF_hotspot_script)):
@@ -155,7 +157,7 @@ def accept_yee_hong_agreement(url,chrome_options):
     current_time = now.strftime("%H:%M:%S")
     try:
         print(current_time,"accepting yee hong agreement...",file=open(date_today+output_name,"a"))
-        os.system("docker run -ti --rm --network host yh1 python3 ./temp/run_connect_yee_hong.py")
+        os.system("docker run -ti --rm --network host "+accept_captive_portal_docker_image_name+" python3 ./temp/run_connect_yee_hong.py")
         return(check_internet_connection(url))
     except:
         print(current_time,"Failure to accept yee hong agreement.", file=open(date_today+output_name,"a"))
