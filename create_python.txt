@@ -1,0 +1,7 @@
+#create virtualenv (you need to have version you want to use alreayd installed)
+virtualenv --python="C:\Users\Aaron Wong\AppData\Local\Programs\Python\Python310\python.exe" yee_hong
+
+#move to directory /venv_name/Scripts/activate
+acivate
+
+pip install -r "C:\Users\Aaron Wong\Desktop\connect_yee_hong_internet\requirements.txt"
