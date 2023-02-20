@@ -7,9 +7,26 @@ from datetime import datetime
 import os
 
 #change this to point to the identity file for the computer it is running on
-filepath_to_identity="identity.py"
+# filepath_to_identity="identity.py"
 
-exec(open(filepath_to_identity).read())
+# exec(open(filepath_to_identity).read())
+
+#vars
+#directory where logs will be saved
+working_directory="C://Users//Aaron Wong//Desktop//connect_yee_hong_internet//universal_connection"
+#name of the wifi adapter
+five_ghz_adapter_name="Wi-Fi 3"
+#the script to initate hotspot turn off
+path_to_turn_OFF_hotspot_script="C://Users//Aaron Wong//Desktop//connect_yee_hong_internet//universal_connection//active_scripts//turn_OFF_hotspot.ps1"
+#ther script to initiate hotspot tunr on 
+path_to_turn_ON_hotspot_script="C://Users//Aaron Wong//Desktop//connect_yee_hong_internet//universal_connection//active_scripts//turn_on_hotspot.ps1"
+#whether to run the hotspot
+run_hotspot=False
+#path to revboot script
+path_reboot_bat="C://Users//Aaron Wong//Desktop//connect_yee_hong_internet//universal_connection//active_scripts//reboot.bat"
+#name of profile of internet to connect to in case Yee Hong is unsuccessful. Must have connected previously to establish a saved profile
+backup_wifi="Dragon_backup"
+
 
 print("backup wifi is: "+backup_wifi)
 print("The chrome driver path is: "+chrome_driver_path)
@@ -35,6 +52,8 @@ os.chdir(working_directory)
 
 url='https://twitter.com/'
 output_name="_output_v2.txt"
+
+
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.headless = True
@@ -122,18 +141,11 @@ def accept_yee_hong_agreement(url,chrome_options):
     current_time = now.strftime("%H:%M:%S")
     try:
         print(current_time,"accepting yee hong agreement...",file=open(date_today+output_name,"a"))
-        driver=webdriver.Chrome(chrome_options=chrome_options,executable_path=chrome_driver_path)
-        time.sleep(5)
-        driver.get(url)
-        time.sleep(10)
-        driver.find_element_by_xpath("//input[@value='Accept']").click()
-        time.sleep(5)
-        driver.close()
-        print(current_time,"Successfully accepted yee hong agreement.", file=open(date_today+output_name,"a"))
-        return(True)
+        os.system("docker run -ti --rm --network host yh1 python3 ./temp/run_connect_yee_hong.py")
+        return(check_internet_connection(url))
     except:
         print(current_time,"Failure to accept yee hong agreement.", file=open(date_today+output_name,"a"))
-        return(False)
+
 
 def check_if_reboot_needed(path_reboot_bat):
     date_today=datetime.today().strftime('%Y-%m-%d')
@@ -151,8 +163,9 @@ def check_if_reboot_needed(path_reboot_bat):
 
 #######################################################################
 #if you wanto test a function uncomment, and we can inject code here.
-exec(open("test_functions.py").read())
-
+# exec(open("test_functions.py").read())
+date_today=datetime.today().strftime('%Y-%m-%d')
+print("2023", file=open(date_today+output_name,"a"))
 fail_count=0
 #the main loop
 while True:
@@ -161,23 +174,29 @@ while True:
     if (not check_internet_connection(url)):
         #first troubleshoot is reset adapter, turn off hotspot, reconnect to yee hong, turn on hotspot
         reset_network_adapter(five_ghz_adapter_name=five_ghz_adapter_name)
-        turn_off_hotspot(path_to_turn_OFF_hotspot_script=path_to_turn_OFF_hotspot_script)
+        if run_hotspot:
+            turn_off_hotspot(path_to_turn_OFF_hotspot_script=path_to_turn_OFF_hotspot_script)
         connect_to_network(five_ghz_adapter_name=five_ghz_adapter_name, ssid="YHCGuest", name="YHCGuest")
-        turn_on_hotspot(run_hotspot=run_hotspot,path_to_turn_ON_hotspot_script=path_to_turn_ON_hotspot_script)
+        if run_hotspot:
+            turn_on_hotspot(run_hotspot=run_hotspot,path_to_turn_ON_hotspot_script=path_to_turn_ON_hotspot_script)
         #if internet still fails, then try to accept the yee hong agreeement
         if(not check_internet_connection(url)):
             accept_yee_hong_agreement(url,chrome_options)
             #if internet stil fails, do a fail count and then attempt to connect to dragon back up
             if(not check_internet_connection(url)):
                 check_if_reboot_needed(path_reboot_bat=path_reboot_bat)
-                turn_off_hotspot(path_to_turn_OFF_hotspot_script=path_to_turn_OFF_hotspot_script)
+                if run_hotspot:
+                    turn_off_hotspot(path_to_turn_OFF_hotspot_script=path_to_turn_OFF_hotspot_script)
                 connect_to_network(five_ghz_adapter_name=five_ghz_adapter_name, ssid=backup_wifi, name=backup_wifi)
-                turn_on_hotspot(run_hotspot=run_hotspot,path_to_turn_ON_hotspot_script=path_to_turn_ON_hotspot_script)
+                if run_hotspot:
+                    turn_on_hotspot(run_hotspot=run_hotspot,path_to_turn_ON_hotspot_script=path_to_turn_ON_hotspot_script)
                 #if internet stil fails connect to Aaron back up
                 if(not check_internet_connection(url)):
-                    turn_off_hotspot(path_to_turn_OFF_hotspot_script=path_to_turn_OFF_hotspot_script)
+                    if run_hotspot:
+                        turn_off_hotspot(path_to_turn_OFF_hotspot_script=path_to_turn_OFF_hotspot_script)
                     connect_to_network(five_ghz_adapter_name=five_ghz_adapter_name, ssid="Aaron", name="Aaron")
-                    turn_on_hotspot(run_hotspot=run_hotspot,path_to_turn_ON_hotspot_script=path_to_turn_ON_hotspot_script)
+                    if run_hotspot:
+                        turn_on_hotspot(run_hotspot=run_hotspot,path_to_turn_ON_hotspot_script=path_to_turn_ON_hotspot_script)
     
 
 
