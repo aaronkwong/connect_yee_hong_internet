@@ -14,6 +14,7 @@ chrome_driver_path="/usr/bin/chromedriver"
 def accept_yee_hong_agreement(url,chrome_options,time_wait_base=5):
     try:
         driver=webdriver.Chrome(chrome_options=chrome_options,executable_path=chrome_driver_path)
+        driver.set_page_load_timeout(30)
         time.sleep(time_wait_base)
         driver.get(url)
         time.sleep(time_wait_base*4)

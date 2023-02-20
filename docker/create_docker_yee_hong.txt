@@ -38,3 +38,8 @@ apt install python3.9
 apt install python3-pip
 
 options.add_argument("--no-sandbox")
+
+
+###################
+
+python3 "./run_connect_yee_hong.py"
