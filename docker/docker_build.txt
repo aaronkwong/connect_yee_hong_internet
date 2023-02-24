@@ -1,1 +1,7 @@
 docker build -t yh1:v2.0 .
+
+
+#before push, tag the new image we made
+docker tag 3eb3cc635eed wonga445/yh1:v2.0
+#push the image
+docker push wonga445/yh1:v2.0

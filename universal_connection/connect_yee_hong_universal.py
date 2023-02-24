@@ -44,20 +44,27 @@ print("path_to_turn_ON_hotspot_script wifi is: "+path_to_turn_ON_hotspot_script)
 print("run_hotspot wifi is: "+str(run_hotspot))
 print("path_reboot_bat wifi is: "+path_reboot_bat)
 print("backup wifi is: "+backup_wifi)
+print("restart net stack path wifi is: "+path_to_restart_netstack)
 print("accept_captive_portal_docker_image_name wifi is: "+accept_captive_portal_docker_image_name)
 
 
+
+
 if(os.path.isfile(path_to_turn_OFF_hotspot_script)):
-    print("good")
+    print("path_to_turn_OFF_hotspot_script file found.")
 
 if(os.path.isfile(path_to_turn_ON_hotspot_script)):
-    print("good")
+    print("path_to_turn_ON_hotspot_script file found.")
 
 if(os.path.isfile(path_reboot_bat)):
-    print("good")
+    print("path_reboot_bat file found.")
+
+if(os.path.isfile(path_to_restart_netstack)):
+    print("path_to_restart_netstack file found.")
 
 if (run_hotspot):
     print("hotspot wil be turned on.")
+
 
 # ORDER OF AUTOMATED INTERNET SEARCH 
 # Yee Hong Wifi
@@ -156,8 +163,11 @@ def accept_yee_hong_agreement(url,chrome_options):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     try:
+        os.system("path_to_restart_netstack &")
+        time.sleep(60)
         print(current_time,"accepting yee hong agreement...",file=open(date_today+output_name,"a"))
-        os.system("docker run -ti --rm --network host "+accept_captive_portal_docker_image_name+" python3 ./temp/run_connect_yee_hong.py")
+        os.system("docker run -ti --rm --network host "+accept_captive_portal_docker_image_name+" python3 ./temp/run_connect_yee_hong.py &")
+        time.sleep(10)
         return(check_internet_connection(url))
     except:
         print(current_time,"Failure to accept yee hong agreement.", file=open(date_today+output_name,"a"))
@@ -189,14 +199,16 @@ while True:
     # if no connection, then start troublshooting
     if (not check_internet_connection(url)):
         #first troubleshoot is reset adapter, turn off hotspot, reconnect to yee hong, turn on hotspot
-        reset_network_adapter(five_ghz_adapter_name=five_ghz_adapter_name)
-        if run_hotspot:
-            turn_off_hotspot(path_to_turn_OFF_hotspot_script=path_to_turn_OFF_hotspot_script)
-        connect_to_network(five_ghz_adapter_name=five_ghz_adapter_name, ssid="YHCGuest", name="YHCGuest")
-        if run_hotspot:
-            turn_on_hotspot(run_hotspot=run_hotspot,path_to_turn_ON_hotspot_script=path_to_turn_ON_hotspot_script)
+        # reset_network_adapter(five_ghz_adapter_name=five_ghz_adapter_name)
+        # if run_hotspot:
+        #     turn_off_hotspot(path_to_turn_OFF_hotspot_script=path_to_turn_OFF_hotspot_script)
+        # connect_to_network(five_ghz_adapter_name=five_ghz_adapter_name, ssid="YHCGuest", name="YHCGuest")
+        # if run_hotspot:
+        #     turn_on_hotspot(run_hotspot=run_hotspot,path_to_turn_ON_hotspot_script=path_to_turn_ON_hotspot_script)
         #if internet still fails, then try to accept the yee hong agreeement
         if(not check_internet_connection(url)):
+            #reset network adapter before trying to reconnect to yee hong
+            reset_network_adapter(five_ghz_adapter_name=five_ghz_adapter_name)
             accept_yee_hong_agreement(url,chrome_options)
             #if internet stil fails, do a fail count and then attempt to connect to dragon back up
             if(not check_internet_connection(url)):
@@ -214,95 +226,3 @@ while True:
                     if run_hotspot:
                         turn_on_hotspot(run_hotspot=run_hotspot,path_to_turn_ON_hotspot_script=path_to_turn_ON_hotspot_script)
     
-
-
-
-
-
-
-# while True:
-#     date_today=datetime.today().strftime('%Y-%m-%d')
-#     try:
-#         url= 'http://www.google.ca/'
-#         a=requests.get(url)
-#         if(a.url==url):
-#             pass
-#         else:
-#             raise ValueError("we are being redirected!!")
-#         now = datetime.now()
-#         current_time = now.strftime("%H:%M:%S")
-#         print("Connected. Current Time =", current_time,file=open(date_today+"_output.txt","a"))
-#         # print("connected")
-#         time.sleep(10)
-#         # raise ValueError('A very specific bad thing happened.')
-#         # time.sleep(1)
-#     except:
-#         try:
-#             print("No internet connection. Trying to reset the connection.",file=open(date_today+"_output.txt","a"))
-#             os.system('netsh interface set interface name="'+five_ghz_adapter_name+'" admin=DISABLED &')
-#             print("adapter disabled "+datetime.now().strftime("%H:%M:%S"),file=open(date_today+"_output.txt","a"))
-#             time.sleep(15)
-#             os.system('netsh interface set interface name="'+five_ghz_adapter_name+'" admin=ENABLED &')
-#             print("adapter enabled "+datetime.now().strftime("%H:%M:%S"),file=open(date_today+"_output.txt","a"))
-#             time.sleep(15)
-#             os.system('netsh wlan connect ssid=YHCGuest name=YHCGuest interface="'+five_ghz_adapter_name+'" &')
-#             time.sleep(10)
-#             b=requests.get(url)
-#             if(b.url==url):
-#                 pass
-#             else:
-#                 raise ValueError("we are being redirected!!"+datetime.now().strftime("%H:%M:%S"),file=open(date_today+"_output.txt","a"))
-#             now = datetime.now()
-#             current_time = now.strftime("%H:%M:%S")
-#             print("Connected. Current Time =", current_time,file=open(date_today+"_output.txt","a"))
-#             if (run_hotspot):
-#                 print("turning on hotspot..."+datetime.now().strftime("%H:%M:%S"),file=open(date_today+"_output.txt","a"))
-#                 os.system('powershell -File "'+path_to_turn_ON_hotspot_script+'" &')
-#         except:
-#            fail_count=fail_count+1
-#            print("fail count is..."+str(fail_count),file=open(date_today+"_output.txt","a"))
-#            if(fail_count>10):
-#                fail_count=0
-#                os.system(path_reboot_bat+' &')
-#             try:
-#                 driver=webdriver.Chrome(chrome_options=chrome_options)
-#                 time.sleep(5)
-#                 driver.get('http://google.ca')
-#                 time.sleep(10)
-#                 driver.find_element_by_xpath("//input[@value='Accept']").click()
-#                 time.sleep(5)
-#                 driver.close()
-#                 url= 'http://www.google.ca/'
-#                 c=requests.get(url)
-#                 if(c.url==url):
-#                     fail_count=0
-#                 else:
-#                     raise ValueError("no connection even after attempting to accept yee hong agreement")
-#                 if (run_hotspot):
-#                     print("turning on hotspot...",file=open(date_today+"_output.txt","a"))
-#                     os.system('powershell -File "'+path_to_turn_ON_hotspot_script+'" &')
-#             except:
-#                 try:
-#                     print("attempting to connect to dragon_backup....",file=open(date_today+"_output.txt","a"))
-#                     #here we try to connecty to another win 10 hotspot. while win10 is connected to another win10 hotspot, you cannot use your own hotspot
-#                     os.system('powershell -File "'+path_to_turn_OFF_hotspot_script+'" &')
-#                     os.system('netsh wlan connect ssid=dragon_backup name=dragon_backup interface="'+five_ghz_adapter_name+'" &')
-#                     time.sleep(10)
-#                     c=requests.get(url)
-#                     if(c.url==url):
-#                         pass
-#                     else:
-#                         raise ValueError("no connection even after attempting to connect to other computer")
-#                 except:
-#                     try:
-#                         print("attempting to connect to Aaron_backup....",file=open(date_today+"_output.txt","a"))
-#                         os.system('powershell -File "'+path_to_turn_OFF_hotspot_script+'" &')
-#                         os.system('netsh wlan connect ssid=Aaron name=Aaron interface="'+five_ghz_adapter_name+'" &')
-#                         time.sleep(10)
-#                         c=requests.get(url)
-#                         if(c.url==url):
-#                             pass
-#                         else:
-#                             raise ValueError("no connection even after attempting to Aaron")
-#                     except:
-#                         pass

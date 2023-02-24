@@ -14,4 +14,6 @@ path_reboot_bat="C://Users//Aaron Wong//Desktop//connect_yee_hong_internet//univ
 #name of profile of internet to connect to in case Yee Hong is unsuccessful. Must have connected previously to establish a saved profile
 backup_wifi="Dragon_backup"
 #name of docker container to use to accept the captive portal
-accept_captive_portal_docker_image_name="wonga445/yh1:v1.0"
+accept_captive_portal_docker_image_name="wonga445/yh2:v1.0"
+#path_to_restart_netstack
+path_to_restart_netstack=""
