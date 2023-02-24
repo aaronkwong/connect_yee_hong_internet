@@ -15,3 +15,4 @@ path_reboot_bat=working_directory+"//active_scripts//reboot.bat"
 backup_wifi="Dragon_backup"
 #name of docker image that accepts the yee hong captive portal
 accept_captive_portal_docker_image_name="wonga445/yh1:v1.0"
+path_to_restart_netstack=working_directory+"//restart_netstack.bat"

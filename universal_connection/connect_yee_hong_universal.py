@@ -36,6 +36,7 @@ from identity import run_hotspot
 from identity import path_reboot_bat
 from identity import backup_wifi
 from identity import accept_captive_portal_docker_image_name
+from identity import path_to_restart_netstack
 
 print("working_directory wifi is: "+working_directory)
 print("five_ghz_adapter_name wifi is: "+five_ghz_adapter_name)
