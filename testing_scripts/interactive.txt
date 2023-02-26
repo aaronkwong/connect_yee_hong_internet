@@ -1,0 +1,28 @@
+#run interactive
+docker run -ti --rm --network host wonga445/yh1:v1.0
+
+
+#attach 
+export DISPLAY=172.21.176.1:0.0
+
+
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import requests
+import json
+import time
+from datetime import datetime
+import os
+
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--no-sandbox")
+#chrome_options.add_argument("--headless")
+chrome_options.add_argument("--incognito")
+
+chrome_driver_path="/usr/bin/chromedriver"
+
+driver=webdriver.Chrome(chrome_options=chrome_options,executable_path=chrome_driver_path)
+driver.set_page_load_timeout(30)
+driver.get(url)
